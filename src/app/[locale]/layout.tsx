@@ -85,7 +85,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <meta name="google-site-verification" content="T_on779LYxxf3cJpcCkvJ1SH379abE2W_V9btGY9cVA" />
+        <meta name="google-site-verification" content="mZC-3cXTXzjaW84bH0kXnrxiSeNmAFnkNmRDukfludA" />
         <link rel="preconnect" href="https://cdn.better-i18n.com" />
         <HreflangTags locale={locale} path="" />
         <WebsiteSchema locale={locale} />

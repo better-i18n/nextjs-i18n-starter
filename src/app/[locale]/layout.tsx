@@ -1,5 +1,5 @@
 import { BetterI18nProvider } from "@better-i18n/next/client";
-import { i18n, i18nConfig } from "../../../i18n.config";
+import { i18n } from "../../../i18n.config";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -19,7 +19,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
         <BetterI18nProvider
-          config={i18nConfig}
+          config={i18n.config}
           locale={locale}
           messages={messages}
           timeZone="UTC"

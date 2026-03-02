@@ -2,12 +2,12 @@
 
 import { useLocale } from "next-intl";
 import { useSetLocale, useManifestLanguages } from "@better-i18n/next/client";
-import { i18nConfig } from "../../i18n.config";
+import { i18n } from "../../i18n.config";
 
 export function LanguageSwitcher() {
   const locale = useLocale();
   const setLocale = useSetLocale();
-  const { languages, isLoading } = useManifestLanguages(i18nConfig);
+  const { languages, isLoading } = useManifestLanguages(i18n.config);
 
   if (isLoading) {
     return (

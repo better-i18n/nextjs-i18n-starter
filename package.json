@@ -1,0 +1,27 @@
+{
+  "name": "nextjs-i18n-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Next.js App Router starter template with better-i18n for internationalization",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@better-i18n/next": "latest",
+    "next": "^15.3",
+    "next-intl": "^4.1",
+    "react": "^19.1",
+    "react-dom": "^19.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4.1",
+    "typescript": "^5.8"
+  }
+}

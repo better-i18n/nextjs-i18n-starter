@@ -19,11 +19,11 @@ export function LanguageSwitcher() {
     <select
       value={locale}
       onChange={(e) => setLocale(e.target.value)}
-      className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm dark:border-gray-700 dark:bg-gray-900"
+      className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium dark:border-gray-700 dark:bg-gray-900"
     >
       {languages.map((lang) => (
         <option key={lang.code} value={lang.code}>
-          {lang.nativeName || lang.code}
+          {lang.nativeName || lang.name || lang.code}
         </option>
       ))}
     </select>

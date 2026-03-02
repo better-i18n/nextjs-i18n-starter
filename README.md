@@ -9,6 +9,7 @@ A production-ready Next.js 15 starter template with [better-i18n](https://better
 - **Instant locale switching** — Client-side re-render, no full page reload
 - **Dynamic language discovery** — Languages auto-sync from your dashboard
 - **SSR translations** — Pre-loaded server-side, no flash of untranslated content
+- **Server APIs** — `getLocales()` and `getMessages()` for server components
 - **Tailwind CSS 4** — Utility-first styling
 - **TypeScript** — Full type safety
 
@@ -40,86 +41,61 @@ Edit `.env`:
 NEXT_PUBLIC_BETTER_I18N_PROJECT=your-org/your-project
 ```
 
-### 4. Add translations
-
-In your better-i18n dashboard, add translation keys matching the namespaces used in the app:
-
-**`home` namespace:**
-| Key | English |
-|-----|---------|
-| `home.badge` | Next.js i18n Starter |
-| `home.title` | Build multilingual apps with ease |
-| `home.description` | A production-ready starter template with better-i18n for Next.js App Router. |
-| `home.cta.docs` | Read the Docs |
-| `home.cta.dashboard` | Open Dashboard |
-| `home.features.ssr.title` | Server-Side Rendering |
-| `home.features.ssr.description` | Translations are loaded server-side for instant page loads with no flash of untranslated content. |
-| `home.features.typesafe.title` | Type-Safe Keys |
-| `home.features.typesafe.description` | TypeScript types for your translation keys catch errors at build time, not runtime. |
-| `home.features.switcher.title` | Instant Switching |
-| `home.features.switcher.description` | Switch languages client-side without a full page reload using the better-i18n provider. |
-
-**`nav` namespace:**
-| Key | English |
-|-----|---------|
-| `nav.home` | Home |
-| `nav.about` | About |
-
-**`about` namespace:**
-| Key | English |
-|-----|---------|
-| `about.title` | About This Starter |
-| `about.description` | This is a starter template demonstrating how to use better-i18n with Next.js App Router for building multilingual applications. |
-| `about.stack.title` | Tech Stack |
-| `about.howItWorks.title` | How It Works |
-| `about.howItWorks.description` | Translations are managed in the better-i18n dashboard and delivered via CDN. The middleware detects the user's locale from the URL, cookie, or browser language. Messages are loaded server-side and passed to the BetterI18nProvider for client components. |
-
-**`footer` namespace:**
-| Key | English |
-|-----|---------|
-| `footer.powered` | Powered by better-i18n |
-| `footer.docs` | Documentation |
-
-### 5. Run
+### 4. Run
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/en`.
 
 ## Project Structure
 
 ```
-├── i18n.config.ts              # better-i18n configuration
-├── middleware.ts                # Locale detection middleware
+├── i18n.config.ts              # better-i18n configuration (createI18n)
+├── middleware.ts                # Locale detection middleware (betterMiddleware)
 ├── src/
 │   ├── i18n/
-│   │   └── request.ts          # next-intl request handler
+│   │   └── request.ts          # next-intl request handler (requestConfig)
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout
 │   │   ├── globals.css         # Tailwind imports
 │   │   └── [locale]/
-│   │       ├── layout.tsx      # Locale layout with BetterI18nProvider
-│   │       ├── page.tsx        # Home page
+│   │       ├── layout.tsx      # BetterI18nProvider + getMessages()
+│   │       ├── page.tsx        # Home — useTranslations + getLocales()
 │   │       └── about/
-│   │           └── page.tsx    # About page
+│   │           └── page.tsx    # About — useTranslations + getLocales()
 │   └── components/
 │       ├── Header.tsx          # Navigation with language switcher
-│       ├── LanguageSwitcher.tsx # Dynamic language picker
+│       ├── LanguageSwitcher.tsx # useSetLocale + useManifestLanguages
 │       └── Footer.tsx          # Footer with links
 ```
 
+## SDK Features Showcased
+
+| Feature | File | API |
+|---------|------|-----|
+| Config | `i18n.config.ts` | `createI18n()` |
+| Middleware | `middleware.ts` | `i18n.betterMiddleware()` |
+| Provider | `[locale]/layout.tsx` | `BetterI18nProvider config={i18n.config}` |
+| Server messages | `[locale]/layout.tsx` | `i18n.getMessages(locale)` |
+| Server locales | `[locale]/page.tsx` | `i18n.getLocales()` |
+| Translations | `page.tsx`, `about/page.tsx` | `useTranslations("namespace")` |
+| Locale switching | `LanguageSwitcher.tsx` | `useSetLocale()` |
+| Language discovery | `LanguageSwitcher.tsx` | `useManifestLanguages(i18n.config)` |
+| Request config | `src/i18n/request.ts` | `i18n.requestConfig` |
+
 ## Key Concepts
 
-### Locale Routing
+### Locale Routing (`localePrefix: "always"`)
 
-The middleware handles locale detection with this priority:
+All URLs include the locale prefix:
 
-1. URL path (`/tr/about` → Turkish)
-2. Locale cookie
-3. `Accept-Language` header
-4. Default locale (`en`)
+- `/en` — English home page
+- `/en/about` — English about page
+- `/tr/about` — Turkish about page
+
+The middleware redirects `/` to `/en` automatically.
 
 ### Server-Side Messages
 
@@ -140,7 +116,20 @@ setLocale("tr"); // Instant switch, no page reload
 
 ### Dynamic Languages
 
-Languages are fetched from the CDN manifest — add a language in the dashboard and it automatically appears in the switcher.
+Languages are fetched from the CDN manifest — add a language in the dashboard and it automatically appears in the switcher:
+
+```tsx
+const { languages, isLoading } = useManifestLanguages(i18n.config);
+```
+
+### Server-Side APIs
+
+Server components can fetch available locales directly:
+
+```tsx
+const locales = await i18n.getLocales();
+// ["en", "tr", "de", "es"]
+```
 
 ## Deployment
 
@@ -161,8 +150,9 @@ npm start
 
 - [better-i18n Documentation](https://docs.better-i18n.com)
 - [Next.js Integration Guide](https://docs.better-i18n.com/frameworks/nextjs)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [next-intl Documentation](https://next-intl.dev)
+- [Middleware Configuration](https://docs.better-i18n.com/frameworks/nextjs/middleware)
+- [Client-Side Features](https://docs.better-i18n.com/frameworks/nextjs/client)
+- [API Reference](https://docs.better-i18n.com/frameworks/nextjs/api-reference)
 
 ## License
 

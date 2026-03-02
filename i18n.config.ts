@@ -4,7 +4,7 @@ export const i18n = createI18n({
   project:
     process.env.NEXT_PUBLIC_BETTER_I18N_PROJECT || "better-i18n/demo",
   defaultLocale: "en",
-  localePrefix: "as-needed",
+  localePrefix: "always",
   messagesRevalidateSeconds: 30,
   manifestRevalidateSeconds: 3600,
   timeZone: "UTC",

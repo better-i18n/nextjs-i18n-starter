@@ -25,7 +25,7 @@ export function Footer() {
             {t("docs")}
           </a>
           <a
-            href="https://github.com/better-i18n"
+            href="https://github.com/better-i18n/nextjs-i18n-starter"
             target="_blank"
             rel="noopener noreferrer"
             className="transition hover:text-gray-700 dark:hover:text-gray-200"

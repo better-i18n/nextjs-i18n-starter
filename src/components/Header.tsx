@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { LocaleDropdown } from "@better-i18n/next/client";
+import { i18n } from "../../i18n.config";
 
 export function Header() {
   const t = useTranslations("nav");
@@ -70,7 +71,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">
-            <LanguageSwitcher />
+            <LocaleDropdown config={i18n.config} locale={locale} />
           </div>
           <Button
             variant="ghost"
@@ -102,7 +103,7 @@ export function Header() {
             ))}
           </nav>
           <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-800">
-            <LanguageSwitcher />
+            <LocaleDropdown config={i18n.config} locale={locale} />
           </div>
         </div>
       )}

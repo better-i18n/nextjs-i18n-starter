@@ -64,8 +64,8 @@ export function Footer() {
                 width={20}
                 height={20}
               />
-              <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                better-i18n
+              <span className="text-sm font-semibold text-gray-900">
+                Better I18N
               </span>
             </div>
             <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">

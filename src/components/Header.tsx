@@ -51,7 +51,7 @@ export function Header() {
               width={24}
               height={24}
             />
-            better-i18n
+            Better I18N
           </Link>
           <nav className="hidden gap-6 sm:flex">
             {navLinks.map((link) => (

@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Github, BookOpen, ExternalLink, ArrowUpRight, Heart } from "lucide-react";
+import { Github, BookOpen, ExternalLink, ArrowUpRight, Globe } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 function FooterLink({
@@ -111,6 +112,12 @@ export function Footer() {
             >
               {t("pricing")}
             </FooterLink>
+            <Link
+              href="/demos"
+              className="flex items-center gap-1.5 text-sm text-gray-500 transition hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              {t("demos")}
+            </Link>
           </FooterColumn>
 
           {/* Developers column */}
@@ -165,22 +172,29 @@ export function Footer() {
           <p className="text-xs text-gray-400 dark:text-gray-500">
             {t("copyright")}
           </p>
-          <div className="flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
-            <Image
-              src="/logo.png"
-              alt="better-i18n"
-              width={14}
-              height={14}
-              className="dark:hidden"
-            />
-            <Image
-              src="/logo-dark.png"
-              alt="better-i18n"
-              width={14}
-              height={14}
-              className="hidden dark:block"
-            />
-            {t("builtWith")}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
+              <Globe className="h-3 w-3" />
+              {t("languages", { count: 15 })}
+            </div>
+            <div className="flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
+              <Image
+                src="/logo.png"
+                alt="better-i18n"
+                width={14}
+                height={14}
+                className="dark:hidden"
+              />
+              <Image
+                src="/logo-dark.png"
+                alt="better-i18n"
+                width={14}
+                height={14}
+                className="hidden dark:block"
+              />
+              {t("builtWith")}
+            </div>
+            <span className="text-xs text-gray-400">{t("version")}</span>
           </div>
         </div>
       </div>

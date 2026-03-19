@@ -56,6 +56,21 @@ export default async function AboutPage() {
   return <AboutContent locales={locales} />;
 }
 
+const FLAGS: Record<string, string> = {
+  en: "🇺🇸", de: "🇩🇪", es: "🇪🇸", tr: "🇹🇷", fr: "🇫🇷", pt: "🇧🇷",
+  ja: "🇯🇵", ko: "🇰🇷", "zh-hans": "🇨🇳", ar: "🇸🇦", ru: "🇷🇺",
+  it: "🇮🇹", nl: "🇳🇱", hi: "🇮🇳", pl: "🇵🇱",
+};
+
+const NATIVE_NAMES: Record<string, string> = {
+  en: "English", de: "Deutsch", es: "Español", tr: "Türkçe", fr: "Français",
+  pt: "Português", ja: "日本語", ko: "한국어", "zh-hans": "简体中文", ar: "العربية",
+  ru: "Русский", it: "Italiano", nl: "Nederlands", hi: "हिन्दी", pl: "Polski",
+};
+
+function getFlag(locale: string) { return FLAGS[locale] ?? "🌐"; }
+function getNativeName(locale: string) { return NATIVE_NAMES[locale] ?? locale; }
+
 function AboutContent({ locales }: { locales: string[] }) {
   const t = useTranslations("about");
   const nav = useTranslations("nav");
@@ -178,13 +193,19 @@ function AboutContent({ locales }: { locales: string[] }) {
           {cdnSteps.map((step, index) => {
             const IconComponent = step.icon;
             return (
-              <div key={step.key} className="flex items-stretch gap-4">
+              <div
+                key={step.key}
+                className="animate-in fade-in slide-in-from-bottom-4 fill-mode-both flex items-stretch gap-4"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
                 <div className="flex flex-col items-center">
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${step.color} text-white shadow-lg`}>
                     <IconComponent className="size-5" />
                   </div>
                   {index < cdnSteps.length - 1 && (
-                    <div className="w-0.5 grow bg-gradient-to-b from-gray-300 to-gray-200 dark:from-gray-600 dark:to-gray-700" />
+                    <div className="w-0.5 grow overflow-hidden bg-gray-200 dark:bg-gray-700">
+                      <div className="h-full w-full animate-pulse bg-gradient-to-b from-brand via-brand/50 to-transparent" />
+                    </div>
                   )}
                 </div>
                 <Card className="mb-6 flex-1 shadow-sm transition hover:shadow-md">
@@ -278,14 +299,20 @@ function AboutContent({ locales }: { locales: string[] }) {
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {t("locales.description")}
         </p>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5">
           {locales.map((loc) => (
-            <Badge
+            <button
               key={loc}
-              variant={loc === locale ? "default" : "secondary"}
+              className={`flex items-center gap-2 rounded-lg border p-3 text-left text-sm transition hover:bg-muted ${
+                loc === locale ? "border-brand ring-2 ring-brand/20" : "border-border"
+              }`}
             >
-              {loc}
-            </Badge>
+              <span className="text-base">{getFlag(loc)}</span>
+              <div>
+                <p className="font-medium">{getNativeName(loc)}</p>
+                <p className="font-mono text-xs text-muted-foreground">{loc}</p>
+              </div>
+            </button>
           ))}
         </div>
         <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
@@ -310,6 +337,12 @@ function AboutContent({ locales }: { locales: string[] }) {
         <Button variant="link" asChild>
           <Link href={`/${locale}/features`}>
             {t("exploreFeatures")}
+            <ArrowRight className="size-3" />
+          </Link>
+        </Button>
+        <Button variant="link" asChild>
+          <Link href={`/${locale}/demos`}>
+            {t("demos")}
             <ArrowRight className="size-3" />
           </Link>
         </Button>

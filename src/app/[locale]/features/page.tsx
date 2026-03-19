@@ -18,7 +18,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
+import { StepCard } from "@/components/StepCard";
 import { toOgLocale } from "@/i18n/locale-map";
 
 interface FeaturesPageProps {
@@ -71,6 +80,49 @@ const featureConfigs: FeatureConfig[] = [
   { key: "middleware", icon: Shield, docUrl: "https://docs.better-i18n.com/frameworks/nextjs/middleware" },
   { key: "dashboard", icon: LayoutDashboard, docUrl: "https://dash.better-i18n.com" },
 ];
+
+const ACCENT_STYLES: Record<string, { iconBg: string; iconText: string; hoverBorder: string }> = {
+  cdn: {
+    iconBg: "from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-800/20",
+    iconText: "text-emerald-600 dark:text-emerald-400",
+    hoverBorder: "hover:border-emerald-200 dark:hover:border-emerald-900",
+  },
+  ssr: {
+    iconBg: "from-violet-100 to-violet-50 dark:from-violet-900/40 dark:to-violet-800/20",
+    iconText: "text-violet-600 dark:text-violet-400",
+    hoverBorder: "hover:border-violet-200 dark:hover:border-violet-900",
+  },
+  switching: {
+    iconBg: "from-amber-100 to-amber-50 dark:from-amber-900/40 dark:to-amber-800/20",
+    iconText: "text-amber-600 dark:text-amber-400",
+    hoverBorder: "hover:border-amber-200 dark:hover:border-amber-900",
+  },
+  discovery: {
+    iconBg: "from-cyan-100 to-cyan-50 dark:from-cyan-900/40 dark:to-cyan-800/20",
+    iconText: "text-cyan-600 dark:text-cyan-400",
+    hoverBorder: "hover:border-cyan-200 dark:hover:border-cyan-900",
+  },
+  typesafe: {
+    iconBg: "from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/20",
+    iconText: "text-blue-600 dark:text-blue-400",
+    hoverBorder: "hover:border-blue-200 dark:hover:border-blue-900",
+  },
+  ai: {
+    iconBg: "from-pink-100 to-pink-50 dark:from-pink-900/40 dark:to-pink-800/20",
+    iconText: "text-pink-600 dark:text-pink-400",
+    hoverBorder: "hover:border-pink-200 dark:hover:border-pink-900",
+  },
+  middleware: {
+    iconBg: "from-slate-200 to-slate-100 dark:from-slate-800/40 dark:to-slate-700/20",
+    iconText: "text-slate-600 dark:text-slate-400",
+    hoverBorder: "hover:border-slate-200 dark:hover:border-slate-900",
+  },
+  dashboard: {
+    iconBg: "from-orange-100 to-orange-50 dark:from-orange-900/40 dark:to-orange-800/20",
+    iconText: "text-orange-600 dark:text-orange-400",
+    hoverBorder: "hover:border-orange-200 dark:hover:border-orange-900",
+  },
+};
 
 function TerminalCodeBlock() {
   return (
@@ -163,31 +215,88 @@ export default function FeaturesPage() {
 
       {/* Feature cards grid */}
       <section className="mt-24 grid gap-6 sm:grid-cols-2">
-        {featureConfigs.map((feature) => (
-          <Card
-            key={feature.key}
-            className="group transition-all duration-200 hover:border-blue-200 hover:shadow-lg dark:hover:border-blue-900"
-          >
-            <CardContent className="p-6">
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 shadow-sm transition-transform duration-200 group-hover:scale-110 dark:from-blue-900/40 dark:to-blue-800/20 dark:text-blue-400">
-                <feature.icon className="h-6 w-6" />
-              </div>
-              <h2 className="text-lg font-semibold">{t(`${feature.key}.title`)}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                {t(`${feature.key}.description`)}
-              </p>
-              <a
-                href={feature.docUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 transition hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-              >
-                {t(`${feature.key}.docLabel`)}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </CardContent>
-          </Card>
-        ))}
+        {featureConfigs.map((feature) => {
+          const accent = ACCENT_STYLES[feature.key] ?? ACCENT_STYLES.typesafe;
+          return (
+            <Card
+              key={feature.key}
+              className={`group transition-all duration-200 hover:shadow-lg ${accent.hoverBorder}`}
+            >
+              <CardContent className="p-6">
+                <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br shadow-sm transition-transform duration-200 group-hover:scale-110 ${accent.iconBg} ${accent.iconText}`}>
+                  <feature.icon className="h-6 w-6" />
+                </div>
+                <h2 className="text-lg font-semibold">{t(`${feature.key}.title`)}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+                  {t(`${feature.key}.description`)}
+                </p>
+                <a
+                  href={feature.docUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-4 inline-flex items-center gap-1 text-sm font-medium transition ${accent.iconText} hover:opacity-80`}
+                >
+                  {t(`${feature.key}.docLabel`)}
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </section>
+
+      {/* Integration Journey section */}
+      <section className="mt-24">
+        <h2 className="text-2xl font-bold sm:text-3xl">{t("journey.title")}</h2>
+        <p className="mt-3 text-muted-foreground">{t("journey.description")}</p>
+        <div className="mt-8">
+          <StepCard number={1} title={t("journey.step1.title")} description={t("journey.step1.description")} code={t("journey.step1.code")} />
+          <StepCard number={2} title={t("journey.step2.title")} description={t("journey.step2.description")} code="export const i18n = createI18n({ ... })" />
+          <StepCard number={3} title={t("journey.step3.title")} description={t("journey.step3.description")} code="<BetterI18nProvider>" />
+          <StepCard number={4} title={t("journey.step4.title")} description={t("journey.step4.description")} code='const t = useTranslations("ns")' isLast />
+        </div>
+      </section>
+
+      {/* Framework Compatibility Table */}
+      <section className="mt-24">
+        <h2 className="text-2xl font-bold sm:text-3xl">{t("compat.title")}</h2>
+        <p className="mt-3 text-muted-foreground">{t("compat.description")}</p>
+        <div className="mt-8 overflow-hidden rounded-xl border">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                <TableHead className="px-4">Feature</TableHead>
+                <TableHead className="px-4 text-center">Next.js</TableHead>
+                <TableHead className="px-4 text-center">Expo</TableHead>
+                <TableHead className="px-4 text-center">Remix</TableHead>
+                <TableHead className="px-4 text-center">Hono</TableHead>
+                <TableHead className="px-4 text-center">TanStack</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[
+                { feature: "CDN Fetch", cells: ["✓", "✓", "✓", "✓", "✓"] },
+                { feature: "ISR / Revalidation", cells: ["✓", "—", "✓", "—", "✓"] },
+                { feature: "useSetLocale()", cells: ["✓", "✓", "✓", "✓", "✓"] },
+                { feature: "useFormatter()", cells: ["✓", "✓", "✓", "✓", "✓"] },
+                { feature: "LocaleDropdown", cells: ["✓", "✓", "✓", "✓", "✓"] },
+                { feature: "SSR Support", cells: ["✓", "—", "✓", "✓", "✓"] },
+              ].map((row) => (
+                <TableRow key={row.feature}>
+                  <TableCell className="px-4 font-medium">{row.feature}</TableCell>
+                  {row.cells.map((cell, i) => (
+                    <TableCell
+                      key={i}
+                      className={`px-4 text-center ${cell === "✓" ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`}
+                    >
+                      {cell}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </section>
 
       {/* Code integration section */}

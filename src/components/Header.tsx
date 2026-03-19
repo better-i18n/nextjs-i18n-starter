@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -15,11 +15,19 @@ export function Header() {
   const locale = useLocale();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/features`, label: t("features") },
     { href: `/${locale}/about`, label: t("about") },
+    { href: `/${locale}/demos`, label: t("demos") },
   ];
 
   const isActive = (href: string) => {
@@ -30,7 +38,7 @@ export function Header() {
   };
 
   return (
-    <header className="border-b border-gray-200 dark:border-gray-800">
+    <header className={`sticky top-0 z-50 backdrop-blur-sm bg-white/80 dark:bg-gray-950/80 transition-[border-color] ${scrolled ? "border-b border-gray-200 dark:border-gray-800" : "border-b border-transparent"}`}>
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-8">
           <Link
@@ -73,6 +81,11 @@ export function Header() {
           <div className="hidden sm:block">
             <LocaleDropdown config={i18n.config} locale={locale} />
           </div>
+          <Button asChild size="sm" className="hidden sm:inline-flex h-8 px-3 text-xs bg-brand text-white hover:bg-brand/90">
+            <a href="https://docs.better-i18n.com/frameworks/nextjs" target="_blank" rel="noopener noreferrer">
+              {t("getStarted")}
+            </a>
+          </Button>
           <Button
             variant="ghost"
             size="icon"

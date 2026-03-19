@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { getTranslations } from "next-intl/server";
 import { BetterI18nProvider } from "@better-i18n/next/client";
 import { i18n } from "../../../i18n.config";
@@ -9,10 +10,6 @@ import { HreflangTags } from "@/components/HreflangTags";
 import { WebsiteSchema } from "@/components/WebsiteSchema";
 import { toOgLocale } from "@/i18n/locale-map";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export async function generateStaticParams() {
   const locales = await i18n.getLocales();
@@ -93,7 +90,7 @@ export default async function LocaleLayout({
         <HreflangTags locale={locale} path="" />
         <WebsiteSchema locale={locale} name={t("schema.name")} description={t("schema.description")} />
       </head>
-      <body className={`${inter.className} min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100`}>
+      <body className={`${GeistSans.className} min-h-screen bg-white text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100`} style={{ "--font-mono": GeistMono.style.fontFamily } as React.CSSProperties}>
         <BetterI18nProvider
           config={i18n.config}
           locale={locale}

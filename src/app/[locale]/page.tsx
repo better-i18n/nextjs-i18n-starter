@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { CodeBlock } from "@/components/CodeBlock";
 import { PluralCounterDemo } from "@/components/demos/PluralCounterDemo";
+import { FormatBentoDemo } from "@/components/demos/FormatBentoDemo";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -161,8 +162,8 @@ function HomeContent({ locales }: { locales: string[] }) {
                 </Link>
               </div>
             </div>
-            <div className="px-6 py-8">
-              <PluralCounterDemo compact />
+            <div className="px-6 py-6">
+              <FormatBentoDemo />
             </div>
           </div>
 

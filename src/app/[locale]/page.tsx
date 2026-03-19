@@ -176,20 +176,20 @@ function HomeContent({ locales }: { locales: string[] }) {
                 CI/CD&apos;de çalıştır, Dashboard&apos;da analiz et. Eksik key, hardcoded string ve orphan çevirileri tek komutla yakala.
               </p>
             </div>
-            {/* Mini terminal output */}
-            <div className="mx-4 mb-4 overflow-hidden rounded-lg bg-gray-950 p-3 font-mono text-[11px] leading-relaxed">
-              <div className="text-gray-500">$ better-i18n doctor</div>
+            {/* Mini terminal output — light theme */}
+            <div className="mx-4 mb-4 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-3 font-mono text-[11px] leading-relaxed">
+              <div className="text-gray-400">$ better-i18n doctor</div>
               <div className="mt-2 flex items-center gap-2">
-                <span className="text-green-400">████████████████</span>
-                <span className="text-gray-500">░░░░</span>
-                <span className="font-bold text-white">82/100</span>
-                <span className="rounded bg-green-900/50 px-1.5 text-[10px] text-green-400">A</span>
+                <span className="text-green-500">████████████████</span>
+                <span className="text-gray-300">░░░░</span>
+                <span className="font-bold text-gray-900">82/100</span>
+                <span className="rounded bg-green-100 px-1.5 text-[10px] font-semibold text-green-700">A</span>
               </div>
-              <div className="mt-2 space-y-0.5 text-gray-400">
-                <div><span className="text-green-400">✓</span> Coverage <span className="float-right text-gray-500">95</span></div>
-                <div><span className="text-green-400">✓</span> Quality <span className="float-right text-gray-500">88</span></div>
-                <div><span className="text-yellow-400">!</span> Code <span className="float-right text-gray-500">72</span></div>
-                <div><span className="text-green-400">✓</span> Structure <span className="float-right text-gray-500">100</span></div>
+              <div className="mt-2 space-y-0.5 text-gray-500">
+                <div><span className="text-green-500">✓</span> Coverage <span className="float-right text-gray-400">95</span></div>
+                <div><span className="text-green-500">✓</span> Quality <span className="float-right text-gray-400">88</span></div>
+                <div><span className="text-amber-500">!</span> Code <span className="float-right text-gray-400">72</span></div>
+                <div><span className="text-green-500">✓</span> Structure <span className="float-right text-gray-400">100</span></div>
               </div>
             </div>
           </div>

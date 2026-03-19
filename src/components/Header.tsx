@@ -46,18 +46,10 @@ export function Header() {
             className="flex items-center gap-2 text-lg font-bold"
           >
             <Image
-              src="/logo.png"
+              src="/brand/logo.svg"
               alt="better-i18n"
               width={24}
               height={24}
-              className="dark:hidden"
-            />
-            <Image
-              src="/logo-dark.png"
-              alt="better-i18n"
-              width={24}
-              height={24}
-              className="hidden dark:block"
             />
             better-i18n
           </Link>

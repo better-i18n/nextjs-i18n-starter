@@ -167,16 +167,30 @@ function HomeContent({ locales }: { locales: string[] }) {
             </div>
           </div>
 
-          {/* Feature: Locale Switching */}
-          <div className="overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-2">
-            <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">useSetLocale()</code>
-            <h3 className="mt-4 text-lg font-semibold">{t("features.switcher.title")}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.switcher.description")}</p>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {locales.slice(0, 6).map((loc) => (
-                <Badge key={loc} variant={loc === locale ? "default" : "outline"} className="text-[10px]">{loc}</Badge>
-              ))}
-              {locales.length > 6 && <Badge variant="outline" className="text-[10px]">+{locales.length - 6}</Badge>}
+          {/* Feature: i18n Doctor CLI */}
+          <div className="overflow-hidden rounded-2xl border bg-card sm:col-span-2">
+            <div className="p-6 pb-3">
+              <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">npx better-i18n doctor</code>
+              <h3 className="mt-4 text-lg font-semibold">i18n Doctor</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                CI/CD&apos;de çalıştır, Dashboard&apos;da analiz et. Eksik key, hardcoded string ve orphan çevirileri tek komutla yakala.
+              </p>
+            </div>
+            {/* Mini terminal output */}
+            <div className="mx-4 mb-4 overflow-hidden rounded-lg bg-gray-950 p-3 font-mono text-[11px] leading-relaxed">
+              <div className="text-gray-500">$ better-i18n doctor</div>
+              <div className="mt-2 flex items-center gap-2">
+                <span className="text-green-400">████████████████</span>
+                <span className="text-gray-500">░░░░</span>
+                <span className="font-bold text-white">82/100</span>
+                <span className="rounded bg-green-900/50 px-1.5 text-[10px] text-green-400">A</span>
+              </div>
+              <div className="mt-2 space-y-0.5 text-gray-400">
+                <div><span className="text-green-400">✓</span> Coverage <span className="float-right text-gray-500">95</span></div>
+                <div><span className="text-green-400">✓</span> Quality <span className="float-right text-gray-500">88</span></div>
+                <div><span className="text-yellow-400">!</span> Code <span className="float-right text-gray-500">72</span></div>
+                <div><span className="text-green-400">✓</span> Structure <span className="float-right text-gray-500">100</span></div>
+              </div>
             </div>
           </div>
         </div>

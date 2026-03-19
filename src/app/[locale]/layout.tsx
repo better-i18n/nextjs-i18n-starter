@@ -69,7 +69,8 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       "theme-color": "#2563eb",
     },
     icons: {
-      icon: "/logo.png",
+      icon: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
     },
   };
 }

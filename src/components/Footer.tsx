@@ -59,18 +59,10 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2">
               <Image
-                src="/logo.png"
+                src="/brand/logo.svg"
                 alt="better-i18n"
                 width={20}
                 height={20}
-                className="dark:hidden"
-              />
-              <Image
-                src="/logo-dark.png"
-                alt="better-i18n"
-                width={20}
-                height={20}
-                className="hidden dark:block"
               />
               <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                 better-i18n
@@ -185,18 +177,10 @@ export function Footer() {
             </div>
             <div className="flex items-center gap-1.5 rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
               <Image
-                src="/logo.png"
+                src="/brand/logo.svg"
                 alt="better-i18n"
                 width={14}
                 height={14}
-                className="dark:hidden"
-              />
-              <Image
-                src="/logo-dark.png"
-                alt="better-i18n"
-                width={14}
-                height={14}
-                className="hidden dark:block"
               />
               {t("builtWith")}
             </div>

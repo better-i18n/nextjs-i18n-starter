@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Github, BookOpen, ExternalLink, ArrowUpRight, Globe } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
@@ -50,6 +50,9 @@ function FooterColumn({
 
 export function Footer() {
   const t = useTranslations("footer");
+  const locale = useLocale();
+  const landing = `https://better-i18n.com/${locale}`;
+  const help = `https://help.better-i18n.com/${locale}`;
 
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800">
@@ -87,7 +90,7 @@ export function Footer() {
           {/* Product column */}
           <FooterColumn title={t("product")}>
             <FooterLink
-              href="https://better-i18n.com"
+              href={landing}
               icon={<ExternalLink className="h-3.5 w-3.5" />}
             >
               better-i18n.com
@@ -99,7 +102,7 @@ export function Footer() {
               {t("dashboard")}
             </FooterLink>
             <FooterLink
-              href="https://better-i18n.com/#pricing"
+              href={`${landing}#pricing`}
               icon={<ExternalLink className="h-3.5 w-3.5" />}
             >
               {t("pricing")}
@@ -143,19 +146,19 @@ export function Footer() {
           {/* Resources column */}
           <FooterColumn title={t("resources")}>
             <FooterLink
-              href="https://better-i18n.com/blog"
+              href={`${landing}/blog`}
               icon={<ExternalLink className="h-3.5 w-3.5" />}
             >
               {t("blog")}
             </FooterLink>
             <FooterLink
-              href="https://better-i18n.com/changelog"
+              href={`${landing}/changelog`}
               icon={<ExternalLink className="h-3.5 w-3.5" />}
             >
               {t("changelog")}
             </FooterLink>
             <FooterLink
-              href="https://help.better-i18n.com"
+              href={help}
               icon={<BookOpen className="h-3.5 w-3.5" />}
             >
               {t("helpCenter")}

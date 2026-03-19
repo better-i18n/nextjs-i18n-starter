@@ -260,7 +260,7 @@ function HomeContent({ locales }: { locales: string[] }) {
           </a>
 
           {/* Help Center */}
-          <a href="https://help.better-i18n.com" target="_blank" rel="noopener noreferrer"
+          <a href={`https://help.better-i18n.com/${locale}`} target="_blank" rel="noopener noreferrer"
             className="group flex flex-col gap-3 bg-card p-6 transition-colors hover:bg-muted/50 sm:col-span-2">
             <div className="flex items-center gap-2">
               <HelpCircle className="h-4 w-4 text-muted-foreground" />

@@ -1,0 +1,33 @@
+# Better i18n Doctor — CI Health Check
+#
+# Runs i18n health analysis on push and pull requests.
+# Reports results to Better i18n dashboard via GitHub OIDC token.
+#
+# Setup: This workflow was automatically created by Better i18n.
+# Documentation: https://docs.better-i18n.com/ci/doctor
+
+name: Better i18n Doctor
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  i18n-doctor:
+    name: i18n Health Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run i18n Doctor
+        run: npx @better-i18n/cli@latest doctor --report --ci

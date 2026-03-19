@@ -162,6 +162,12 @@ export function Footer() {
             >
               {t("changelog")}
             </FooterLink>
+            <FooterLink
+              href="https://help.better-i18n.com"
+              icon={<BookOpen className="h-3.5 w-3.5" />}
+            >
+              {t("helpCenter")}
+            </FooterLink>
           </FooterColumn>
         </div>
 

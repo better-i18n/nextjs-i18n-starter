@@ -12,10 +12,10 @@ interface CodeBlockProps {
 
 function highlightSyntax(code: string): string {
   return code
+    // comments first — prevents inner content from being matched by later rules
+    .replace(/(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)/gm, '<span class="text-gray-500">$&</span>')
     // strings
     .replace(/(["'`])(?:(?!\1|\\).|\\.)*\1/g, '<span class="text-emerald-400">$&</span>')
-    // comments
-    .replace(/(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)/gm, '<span class="text-gray-500">$&</span>')
     // keywords
     .replace(/\b(import|from|export|const|let|var|function|return|async|await|default|type)\b/g, '<span class="text-purple-400">$&</span>')
     // brackets/operators

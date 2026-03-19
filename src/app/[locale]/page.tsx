@@ -4,10 +4,10 @@ import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { i18n } from "../../../i18n.config";
 import { toOgLocale } from "@/i18n/locale-map";
-import { ArrowRight, BookOpen, LayoutDashboard, GithubIcon } from "lucide-react";
+import { ArrowRight, BookOpen, LayoutDashboard, GithubIcon, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LocaleDropdown } from "@better-i18n/next/client";
+
 import { CodeBlock } from "@/components/CodeBlock";
 import { PluralCounterDemo } from "@/components/demos/PluralCounterDemo";
 
@@ -79,20 +79,6 @@ function HomeContent({ locales }: { locales: string[] }) {
         <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]" aria-hidden="true" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
 
         <div className="mx-auto max-w-4xl px-6 pb-24 pt-20 sm:pt-28">
-          {/* Locale pill — the hero IS the product */}
-          <div className="mb-10 flex items-center gap-3">
-            <span className="h-px flex-1 bg-border" />
-            <div className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs text-muted-foreground">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              {t("readingIn")}
-              <LocaleDropdown config={i18n.config} locale={locale} />
-            </div>
-            <span className="h-px flex-1 bg-border" />
-          </div>
-
           {/* Headline — left-aligned, editorial */}
           <h1 className="max-w-2xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             {t("title")}
@@ -134,23 +120,21 @@ function HomeContent({ locales }: { locales: string[] }) {
       <section className="mx-auto max-w-4xl px-6 pb-24">
         <div className="grid gap-4 sm:grid-cols-5">
           {/* Feature: SSR */}
-          <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-3">
-            <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-brand/5 transition-transform group-hover:scale-150" />
-            <code className="relative rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">getTranslations()</code>
-            <h3 className="relative mt-4 text-lg font-semibold">{t("features.ssr.title")}</h3>
-            <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.ssr.description")}</p>
-            <Link href={`/${locale}/demos`} className="relative mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand">
+          <div className="overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-3">
+            <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">getTranslations()</code>
+            <h3 className="mt-4 text-lg font-semibold">{t("features.ssr.title")}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.ssr.description")}</p>
+            <Link href={`/${locale}/demos`} className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand">
               {t("features.seeDemo")} <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
 
           {/* Feature: Type-safe */}
-          <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-2">
-            <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-violet-500/5 transition-transform group-hover:scale-150" />
-            <code className="relative rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">useTranslations()</code>
-            <h3 className="relative mt-4 text-lg font-semibold">{t("features.typesafe.title")}</h3>
-            <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.typesafe.description")}</p>
-            <Link href={`/${locale}/demos`} className="relative mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand">
+          <div className="overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-2">
+            <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">useTranslations()</code>
+            <h3 className="mt-4 text-lg font-semibold">{t("features.typesafe.title")}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.typesafe.description")}</p>
+            <Link href={`/${locale}/demos`} className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand">
               {t("features.seeDemo")} <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -171,12 +155,11 @@ function HomeContent({ locales }: { locales: string[] }) {
           </div>
 
           {/* Feature: Locale Switching */}
-          <div className="group relative overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-2">
-            <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-amber-500/5 transition-transform group-hover:scale-150" />
-            <code className="relative rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">useSetLocale()</code>
-            <h3 className="relative mt-4 text-lg font-semibold">{t("features.switcher.title")}</h3>
-            <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.switcher.description")}</p>
-            <div className="relative mt-4 flex flex-wrap gap-1.5">
+          <div className="overflow-hidden rounded-2xl border bg-card p-6 sm:col-span-2">
+            <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">useSetLocale()</code>
+            <h3 className="mt-4 text-lg font-semibold">{t("features.switcher.title")}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("features.switcher.description")}</p>
+            <div className="mt-4 flex flex-wrap gap-1.5">
               {locales.slice(0, 6).map((loc) => (
                 <Badge key={loc} variant={loc === locale ? "default" : "outline"} className="text-[10px]">{loc}</Badge>
               ))}
@@ -247,6 +230,17 @@ function HomeContent({ locales }: { locales: string[] }) {
             </div>
             <h3 className="text-base font-semibold group-hover:text-brand transition-colors">{t("why.opensource.title")}</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">{t("why.opensource.description")}</p>
+          </a>
+
+          {/* Help Center */}
+          <a href="https://help.better-i18n.com" target="_blank" rel="noopener noreferrer"
+            className="group flex flex-col gap-3 bg-card p-6 transition-colors hover:bg-muted/50 sm:col-span-2">
+            <div className="flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-muted-foreground" />
+              <span className="rounded-full border px-2 py-0.5 text-[10px] text-muted-foreground">TanStack Start + CF Workers</span>
+            </div>
+            <h3 className="text-base font-semibold group-hover:text-brand transition-colors">{t("why.helpcenter.title")}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{t("why.helpcenter.description")}</p>
           </a>
         </div>
       </section>

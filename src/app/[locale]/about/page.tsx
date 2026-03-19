@@ -7,7 +7,6 @@ import { Upload, Globe, Server, Monitor, ArrowRight, ExternalLink, BookOpen, Git
 import { i18n } from "../../../../i18n.config";
 import { toOgLocale } from "@/i18n/locale-map";
 import { BreadcrumbSchema } from "@/components/BreadcrumbSchema";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,7 +17,6 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
 
 interface AboutPageProps {
   params: Promise<{ locale: string }>;
@@ -84,11 +82,11 @@ function AboutContent({ locales }: { locales: string[] }) {
     { name: "TypeScript 5", detailKey: "stack.fullTypeSafety" as const, color: "bg-blue-700 text-white" },
   ];
 
-  const cdnSteps: { key: string; color: string; icon: LucideIcon }[] = [
-    { key: "publish", color: "from-violet-500 to-purple-600", icon: Upload },
-    { key: "edge", color: "from-blue-500 to-cyan-500", icon: Globe },
-    { key: "ssr", color: "from-emerald-500 to-teal-500", icon: Server },
-    { key: "hydration", color: "from-amber-500 to-orange-500", icon: Monitor },
+  const cdnSteps: { key: string; icon: LucideIcon }[] = [
+    { key: "publish", icon: Upload },
+    { key: "edge", icon: Globe },
+    { key: "ssr", icon: Server },
+    { key: "hydration", icon: Monitor },
   ];
 
   const apis = [
@@ -109,26 +107,22 @@ function AboutContent({ locales }: { locales: string[] }) {
   };
 
   return (
-    <article className="mx-auto max-w-4xl px-6 py-20">
+    <article>
       <BreadcrumbSchema items={[
         { name: nav("home"), href: `/${locale}` },
         { name: nav("about"), href: `/${locale}/about` },
       ]} />
 
       {/* Hero Introduction */}
-      <section
-        aria-label={t("aria.introduction")}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-violet-50 to-purple-50 px-8 py-12 dark:from-blue-950/40 dark:via-violet-950/40 dark:to-purple-950/40"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.08),transparent_50%)]" />
-        <div className="relative">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+      <section aria-label={t("aria.introduction")}>
+        <div className="mx-auto max-w-4xl px-6 pb-24 pt-20 sm:pt-28">
+          <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
             {t("title")}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
             {t("description")}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <Button asChild>
               <Link href="https://docs.better-i18n.com/frameworks/nextjs">
                 <BookOpen />
@@ -147,102 +141,99 @@ function AboutContent({ locales }: { locales: string[] }) {
       </section>
 
       {/* Tech Stack */}
-      <section className="mt-20" aria-label={t("stack.title")}>
-        <h2 className="text-2xl font-semibold">{t("stack.title")}</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("stack.title")}>
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-bold tracking-tight whitespace-nowrap">{t("stack.title")}</h2>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <div className="grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {stack.map((item) => (
-            <Card key={item.name} className="group transition hover:shadow-md dark:hover:border-gray-700">
-              <CardContent className="flex items-start gap-3">
+            <div key={item.name} className="bg-card p-6">
+              <div className="flex items-start gap-3">
                 <span className={`inline-flex shrink-0 items-center rounded-md px-2 py-1 text-xs font-bold ${item.color}`}>
                   {item.name.split(" ")[0]}
                 </span>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                  <h3 className="font-semibold">
                     {item.name}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {t(item.detailKey)}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
       {/* CDN Architecture */}
-      <section
-        className="mt-20 rounded-2xl bg-gradient-to-br from-gray-50 to-slate-100 px-8 py-10 dark:from-gray-900/60 dark:to-slate-900/60"
-        aria-label={t("cdnArchitecture")}
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">{t("cdnArchitecture")}</h2>
-          <Button variant="link" asChild className="gap-1">
+      <section className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("cdnArchitecture")}>
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-bold tracking-tight whitespace-nowrap">{t("cdnArchitecture")}</h2>
+          <span className="h-px flex-1 bg-border" />
+          <Button variant="link" asChild className="gap-1 shrink-0">
             <Link href="https://docs.better-i18n.com/frameworks/nextjs">
               {t("learnMore")}
               <ArrowRight className="size-3" />
             </Link>
           </Button>
         </div>
-        <p className="mt-4 max-w-2xl text-gray-600 dark:text-gray-400">
+        <p className="mb-8 max-w-2xl text-muted-foreground">
           {t("cdnDescription")}
         </p>
 
         {/* Visual Flow Diagram */}
-        <div className="mt-8 flex flex-col gap-0">
+        <div className="flex flex-col gap-0">
           {cdnSteps.map((step, index) => {
             const IconComponent = step.icon;
             return (
               <div
                 key={step.key}
-                className="animate-in fade-in slide-in-from-bottom-4 fill-mode-both flex items-stretch gap-4"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="flex items-stretch gap-4"
               >
                 <div className="flex flex-col items-center">
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${step.color} text-white shadow-lg`}>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-background">
                     <IconComponent className="size-5" />
                   </div>
                   {index < cdnSteps.length - 1 && (
-                    <div className="w-0.5 grow overflow-hidden bg-gray-200 dark:bg-gray-700">
-                      <div className="h-full w-full animate-pulse bg-gradient-to-b from-brand via-brand/50 to-transparent" />
-                    </div>
+                    <div className="w-px grow border-l border-border my-1" />
                   )}
                 </div>
-                <Card className="mb-6 flex-1 shadow-sm transition hover:shadow-md">
-                  <CardContent>
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                      {t(`cdn.${step.key}.title`)}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                      {t(`cdn.${step.key}.description`)}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div className="mb-6 flex-1 rounded-xl border bg-card p-4">
+                  <h3 className="font-semibold">
+                    {t(`cdn.${step.key}.title`)}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {t(`cdn.${step.key}.description`)}
+                  </p>
+                </div>
               </div>
             );
           })}
         </div>
 
-        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-4 text-sm text-muted-foreground">
           {t("cacheNote")}
         </p>
       </section>
 
       {/* SDK APIs */}
-      <section className="mt-20" aria-label={t("sdkApis")}>
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">{t("sdkApis")}</h2>
-          <Button variant="link" asChild className="gap-1">
+      <section className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("sdkApis")}>
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-bold tracking-tight whitespace-nowrap">{t("sdkApis")}</h2>
+          <span className="h-px flex-1 bg-border" />
+          <Button variant="link" asChild className="gap-1 shrink-0">
             <Link href="https://docs.better-i18n.com/frameworks/nextjs/api-reference">
               {t("fullApiRef")}
               <ExternalLink className="size-3" />
             </Link>
           </Button>
         </div>
-        <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+        <div className="overflow-hidden rounded-xl border">
           <Table>
             <TableHeader>
-              <TableRow className="bg-gray-50 dark:bg-gray-800/50">
+              <TableRow className="bg-muted">
                 <TableHead className="px-4">{t("apiTable.api")}</TableHead>
                 <TableHead className="px-4">{t("apiTable.type")}</TableHead>
                 <TableHead className="px-4">{t("apiTable.purpose")}</TableHead>
@@ -261,7 +252,7 @@ function AboutContent({ locales }: { locales: string[] }) {
                       {api.type}
                     </Badge>
                   </TableCell>
-                  <TableCell className="px-4 text-gray-600 dark:text-gray-400">
+                  <TableCell className="px-4 text-muted-foreground">
                     {t(api.purposeKey)}
                   </TableCell>
                 </TableRow>
@@ -271,40 +262,43 @@ function AboutContent({ locales }: { locales: string[] }) {
         </div>
       </section>
 
-      <Separator className="mt-20" />
-
       {/* How It Works */}
-      <section
-        className="mt-20 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 px-8 py-10 dark:from-emerald-950/30 dark:to-teal-950/30"
-        aria-label={t("howItWorks.title")}
-      >
-        <h2 className="text-2xl font-semibold">{t("howItWorks.title")}</h2>
-        <p className="mt-4 max-w-2xl leading-relaxed text-gray-600 dark:text-gray-400">
-          {t("howItWorks.description")}
-        </p>
-        <div className="mt-6">
-          <Button variant="link" asChild className="gap-1 px-0 text-emerald-700 dark:text-emerald-400">
-            <Link href="https://docs.better-i18n.com/frameworks/nextjs">
-              <BookOpen className="size-3" />
-              {t("readGuide")}
-              <ArrowRight className="size-3" />
-            </Link>
-          </Button>
+      <section className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("howItWorks.title")}>
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-bold tracking-tight whitespace-nowrap">{t("howItWorks.title")}</h2>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <div className="rounded-2xl border bg-card px-8 py-10">
+          <p className="max-w-2xl leading-relaxed text-muted-foreground">
+            {t("howItWorks.description")}
+          </p>
+          <div className="mt-6">
+            <Button variant="link" asChild className="gap-1 px-0">
+              <Link href="https://docs.better-i18n.com/frameworks/nextjs">
+                <BookOpen className="size-3" />
+                {t("readGuide")}
+                <ArrowRight className="size-3" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Supported Locales */}
-      <section className="mt-20" aria-label={t("locales.title")}>
-        <h2 className="text-2xl font-semibold">{t("locales.title")}</h2>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+      <section className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("locales.title")}>
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-bold tracking-tight whitespace-nowrap">{t("locales.title")}</h2>
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
           {t("locales.description")}
         </p>
-        <div className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-5">
+        <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
           {locales.map((loc) => (
             <button
               key={loc}
-              className={`flex items-center gap-2 rounded-lg border p-3 text-left text-sm transition hover:bg-muted ${
-                loc === locale ? "border-brand ring-2 ring-brand/20" : "border-border"
+              className={`flex items-center gap-2 rounded-lg border bg-card p-3 text-left text-sm transition hover:bg-muted ${
+                loc === locale ? "border-foreground" : "border-border"
               }`}
             >
               <span className="text-base">{getFlag(loc)}</span>
@@ -315,7 +309,7 @@ function AboutContent({ locales }: { locales: string[] }) {
             </button>
           ))}
         </div>
-        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-4 text-sm text-muted-foreground">
           {t("manageLocales")}{" "}
           <Link
             href="https://dash.better-i18n.com"
@@ -328,24 +322,29 @@ function AboutContent({ locales }: { locales: string[] }) {
       </section>
 
       {/* Bottom Navigation */}
-      <nav className="mt-20 flex items-center justify-center gap-6 border-t border-gray-200 pt-8 dark:border-gray-800" aria-label={t("aria.exploreMore")}>
-        <Button variant="link" asChild>
-          <Link href={`/${locale}`}>
-            &larr; {t("backToHome")}
-          </Link>
-        </Button>
-        <Button variant="link" asChild>
-          <Link href={`/${locale}/features`}>
-            {t("exploreFeatures")}
-            <ArrowRight className="size-3" />
-          </Link>
-        </Button>
-        <Button variant="link" asChild>
-          <Link href={`/${locale}/demos`}>
-            {t("demos")}
-            <ArrowRight className="size-3" />
-          </Link>
-        </Button>
+      <nav className="mx-auto max-w-4xl px-6 pb-24" aria-label={t("aria.exploreMore")}>
+        <div className="flex items-center gap-4 mb-8">
+          <span className="h-px flex-1 bg-border" />
+        </div>
+        <div className="flex items-center justify-center gap-6">
+          <Button variant="link" asChild>
+            <Link href={`/${locale}`}>
+              &larr; {t("backToHome")}
+            </Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link href={`/${locale}/features`}>
+              {t("exploreFeatures")}
+              <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link href={`/${locale}/demos`}>
+              {t("demos")}
+              <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+        </div>
       </nav>
     </article>
   );

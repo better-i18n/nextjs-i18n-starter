@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@better-i18n/next": "^0.6.2",
+    "@better-i18n/next": "^0.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "geist": "^1.7.0",

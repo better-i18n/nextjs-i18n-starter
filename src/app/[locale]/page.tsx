@@ -51,21 +51,33 @@ const npmCode = `npm install @better-i18n/next
 
 # i18n.config.ts
 import { createI18n } from "@better-i18n/next";
-
 export const i18n = createI18n({
-  project: "your-org/your-project",
+  project: "my-org/my-app",
   defaultLocale: "en",
-});`;
+});
+
+# middleware.ts
+import { i18n } from "./i18n.config";
+export default i18n.betterMiddleware();
+export const config = {
+  matcher: ["/((?!api|_next|.*\\\\..*).*)"],
+};`;
 
 const bunCode = `bun add @better-i18n/next
 
 # i18n.config.ts
 import { createI18n } from "@better-i18n/next";
-
 export const i18n = createI18n({
-  project: "your-org/your-project",
+  project: "my-org/my-app",
   defaultLocale: "en",
-});`;
+});
+
+# middleware.ts
+import { i18n } from "./i18n.config";
+export default i18n.betterMiddleware();
+export const config = {
+  matcher: ["/((?!api|_next|.*\\\\..*).*)"],
+};`;
 
 function HomeContent({ locales }: { locales: string[] }) {
   const t = useTranslations("home");
@@ -105,7 +117,7 @@ function HomeContent({ locales }: { locales: string[] }) {
 
           {/* Proof strip */}
           <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            <span className="font-mono tabular-nums">{locales.length} {t("stats.locales", { count: locales.length })}</span>
+            <span className="font-mono tabular-nums">{t("stats.locales", { count: locales.length })}</span>
             <span className="hidden text-border sm:inline">|</span>
             <span>{t("stats.fallback")}</span>
             <span className="hidden text-border sm:inline">|</span>

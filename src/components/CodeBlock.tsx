@@ -11,15 +11,17 @@ interface CodeBlockProps {
 }
 
 function highlightSyntax(code: string): string {
-  return code
-    // comments first — prevents inner content from being matched by later rules
-    .replace(/(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)/gm, '<span class="text-gray-500">$&</span>')
-    // strings
-    .replace(/(["'`])(?:(?!\1|\\).|\\.)*\1/g, '<span class="text-emerald-400">$&</span>')
-    // keywords
-    .replace(/\b(import|from|export|const|let|var|function|return|async|await|default|type)\b/g, '<span class="text-purple-400">$&</span>')
-    // brackets/operators
-    .replace(/([{}()[\]=;,])/g, '<span class="text-gray-400">$&</span>');
+  // Single-pass tokenizer — prevents cascading replacements that corrupt HTML tags
+  return code.replace(
+    /(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b(?:import|from|export|const|let|var|function|return|async|await|default|type)\b)|([{}()[\]=;,])/gm,
+    (match, comment, str, keyword, bracket) => {
+      if (comment) return `<span class="text-gray-500">${comment}</span>`;
+      if (str) return `<span class="text-emerald-400">${str}</span>`;
+      if (keyword) return `<span class="text-purple-400">${keyword}</span>`;
+      if (bracket) return `<span class="text-gray-400">${bracket}</span>`;
+      return match;
+    }
+  );
 }
 
 export function CodeBlock({ code, filename, showTabs }: CodeBlockProps) {

@@ -189,8 +189,10 @@ export function FormatBentoDemo() {
       </div>
 
       {/* Code hint */}
+      {/* // i18n-ignore */}
       <div className="rounded-lg bg-gray-50 px-3 py-2">
         <code className="font-mono text-[11px] text-gray-500">
+          {/* // i18n-ignore */}
           format.number(1234567.89, {"{"} style: &quot;currency&quot; {"}"})
         </code>
       </div>

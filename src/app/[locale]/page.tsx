@@ -171,9 +171,9 @@ function HomeContent({ locales }: { locales: string[] }) {
           <div className="overflow-hidden rounded-2xl border bg-card sm:col-span-2">
             <div className="p-6 pb-3">
               <code className="rounded-md bg-muted px-2 py-1 font-mono text-xs text-muted-foreground">npx better-i18n doctor</code>
-              <h3 className="mt-4 text-lg font-semibold">i18n Doctor</h3>
+              <h3 className="mt-4 text-lg font-semibold">{t("features.doctor.title")}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                CI/CD&apos;de çalıştır, Dashboard&apos;da analiz et. Eksik key, hardcoded string ve orphan çevirileri tek komutla yakala.
+                {t("features.doctor.description")}
               </p>
             </div>
             {/* Mini terminal output — light theme */}
@@ -186,10 +186,10 @@ function HomeContent({ locales }: { locales: string[] }) {
                 <span className="rounded bg-green-100 px-1.5 text-[10px] font-semibold text-green-700">A</span>
               </div>
               <div className="mt-2 space-y-0.5 text-gray-500">
-                <div><span className="text-green-500">✓</span> Coverage <span className="float-right text-gray-400">95</span></div>
-                <div><span className="text-green-500">✓</span> Quality <span className="float-right text-gray-400">88</span></div>
-                <div><span className="text-amber-500">!</span> Code <span className="float-right text-gray-400">72</span></div>
-                <div><span className="text-green-500">✓</span> Structure <span className="float-right text-gray-400">100</span></div>
+                <div><span className="text-green-500">✓</span> {t("features.doctor.terminal.coverage")} <span className="float-right text-gray-400">95</span></div>
+                <div><span className="text-green-500">✓</span> {t("features.doctor.terminal.quality")} <span className="float-right text-gray-400">88</span></div>
+                <div><span className="text-amber-500">!</span> {t("features.doctor.terminal.code")} <span className="float-right text-gray-400">72</span></div>
+                <div><span className="text-green-500">✓</span> {t("features.doctor.terminal.structure")} <span className="float-right text-gray-400">100</span></div>
               </div>
             </div>
           </div>
@@ -220,6 +220,7 @@ function HomeContent({ locales }: { locales: string[] }) {
           <a href="https://docs.better-i18n.com" target="_blank" rel="noopener noreferrer"
             className="group flex flex-col gap-3 bg-card p-6 transition-colors hover:bg-muted/50">
             <span className="font-mono text-[11px] tracking-widest text-muted-foreground uppercase">
+              {/* // i18n-ignore */}
               Dashboard &rarr; CDN &rarr; App
             </span>
             <h3 className="text-base font-semibold group-hover:text-brand transition-colors">{t("why.cdn.title")}</h3>
@@ -242,6 +243,7 @@ function HomeContent({ locales }: { locales: string[] }) {
           <a href="https://dash.better-i18n.com" target="_blank" rel="noopener noreferrer"
             className="group flex flex-col gap-3 bg-card p-6 transition-colors hover:bg-muted/50">
             <div className="w-fit rounded-md border bg-muted px-3 py-1.5 font-mono text-xs">
+              {/* // i18n-ignore */}
               <span className="text-brand">home.title</span> <span className="text-muted-foreground">&rarr;</span> <span className="text-emerald-600 dark:text-emerald-400">&quot;Welcome&quot;</span>
             </div>
             <h3 className="text-base font-semibold group-hover:text-brand transition-colors">{t("why.dashboard.title")}</h3>

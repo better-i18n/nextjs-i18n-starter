@@ -207,7 +207,7 @@ export default function FeaturesPage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="px-4">Feature</TableHead>
+                <TableHead className="px-4">{t("compat.featureColumn")}</TableHead>
                 <TableHead className="px-4 text-center">Next.js</TableHead>
                 <TableHead className="px-4 text-center">Expo</TableHead>
                 <TableHead className="px-4 text-center">Remix</TableHead>
@@ -217,12 +217,12 @@ export default function FeaturesPage() {
             </TableHeader>
             <TableBody>
               {[
-                { feature: "CDN Fetch", cells: ["✓", "✓", "✓", "✓", "✓"] },
-                { feature: "ISR / Revalidation", cells: ["✓", "—", "✓", "—", "✓"] },
+                { feature: t("compat.cdnFetch"), cells: ["✓", "✓", "✓", "✓", "✓"] },
+                { feature: t("compat.isrRevalidation"), cells: ["✓", "—", "✓", "—", "✓"] },
                 { feature: "useSetLocale()", cells: ["✓", "✓", "✓", "✓", "✓"] },
                 { feature: "useFormatter()", cells: ["✓", "✓", "✓", "✓", "✓"] },
                 { feature: "LocaleDropdown", cells: ["✓", "✓", "✓", "✓", "✓"] },
-                { feature: "SSR Support", cells: ["✓", "—", "✓", "✓", "✓"] },
+                { feature: t("compat.ssrSupport"), cells: ["✓", "—", "✓", "✓", "✓"] },
               ].map((row) => (
                 <TableRow key={row.feature}>
                   <TableCell className="px-4 font-medium">{row.feature}</TableCell>
